@@ -44,7 +44,6 @@ class BandController extends Controller
   {
     $bands = Band::all();
     foreach ($bands as $band) {
-      echo snake_case($band['band_name']);
       $band->seo_name = camel_case(strtolower(preg_replace('/[^a-z0-9]/i', '_', $band['band_name'])));
       $band->save();
     }

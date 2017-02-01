@@ -192,6 +192,8 @@ class GigAdminController extends Controller
           $this_gig[] = $gig['subtitle'];
         }
 
+        dd($gig->bands->lists('band_name'));
+
         $band_list = array_chunk($gig->bands->lists('band_name'), 3);
 
         $first_row = true;

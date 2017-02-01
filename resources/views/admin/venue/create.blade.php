@@ -38,7 +38,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::submit((!empty($submit) ? $submit : 'Add Band'), ['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::submit((!empty($submit) ? $submit : 'Add Venue'), ['class' => 'btn btn-primary form-control']) !!}
     </div>
 
     {!! Form::close() !!}
