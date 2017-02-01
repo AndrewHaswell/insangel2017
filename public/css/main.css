@@ -1,0 +1,226 @@
+body {
+  margin:           0;
+  padding:          0;
+  font-family:      'Roboto', tahoma, arial, sans-serif;
+  background-image: url("/images/graffiti_background.png");
+  font-size:        11pt;
+  }
+
+body, html {
+  height:  100%;
+  margin:  0;
+  padding: 0;
+  }
+
+@font-face {
+  font-family: dynamo;
+  src:         url("/fonts/STAMPWRITER-KIT.ttf");
+  }
+
+@font-face {
+  font-family: insangel;
+  src:         url("/fonts/olympic branding.ttf");
+  }
+
+#main, #footer {
+  padding:      0;
+  margin:       15px;
+  border:       12px solid transparent;
+  border-image: url("/images/dirt_border.png") 12 12 repeat;
+  }
+
+#body, #footer_details {
+  background-image: url("/images/dirt.png");
+  background-color: white;
+  margin:           0;
+  padding:          8px 20px;
+  }
+
+#footer_details {
+  text-align: center;
+  }
+
+#footer_details a {
+  text-decoration: none;
+  color:           inherit;
+  }
+
+#body_text {
+  width: 60%;
+  }
+
+h1, h2, h3 {
+  color:       #c70000;
+  font-weight: normal;
+  }
+
+h2 {
+  border-bottom: 1px dashed #c70000;
+  }
+
+#insangel_logo {
+  position:     absolute;
+  top:          6px;
+  left:         6px;
+  float:        left;
+  margin-right: 20px;
+  }
+
+.sub {
+  position: absolute;
+  z-index:  50;
+  top:      0px;
+  left:     0px;
+  display:  none;
+  }
+
+#navigation ul {
+  color:           white;
+  font-weight:     bold;
+  display:         inline;
+  list-style-type: none;
+  }
+
+.navigation_link {
+  display:  inline;
+  position: relative;
+  top:      0px;
+  }
+
+.navigation_link a {
+  font-family:      'dynamo';
+  float:            left;
+  color:            white;
+  background-color: #0f0f0f;
+  border:           1px solid #0f0f0f;
+  font-size:        16pt;
+  padding:          5px 8px;
+  margin:           5px;
+  text-decoration:  none;
+  box-shadow:       3px 3px 3px rgba(255, 255, 255, 0.25);
+  }
+
+.navigation_link a:hover {
+  color:      #ff0000;
+  border:     1px solid #333333;
+  box-shadow: 5px 5px 3px rgba(255, 255, 255, 0.25);
+  }
+
+#head {
+  position: relative;
+  display:  block;
+  width:    100%;
+  height:   135px;
+  }
+
+#navigation {
+  display:  block;
+  position: fixed;
+  right:    120px;
+  z-index:  1000;
+  }
+
+#side_bar {
+  background-image: url("/images/scratch-black-grey-print.jpg");
+  width:            30%;
+  position:         relative;
+  float:            right;
+  top:              20px;
+  right:            40px;
+  border:           2px solid grey;
+  }
+
+#side_bar_text {
+  padding:     15px;
+  color:       white;
+  font-weight: 400;
+  }
+
+/*Initialize*/
+ul#menu, ul#menu ul.sub-menu {
+  padding: 0;
+  margin:  0 6px;
+  }
+
+ul#menu li, ul#menu ul.sub-menu li {
+  list-style-type: none;
+  display:         inline-block;
+  }
+
+/*Link Appearance*/
+ul#menu li a, ul#menu li ul.sub-menu li a {
+  text-decoration:  none;
+  color:            #fff;
+  background:       #000000;
+  background-image: url("/images/scratch-black-grey-print.jpg");
+  padding:          10px;
+  display:          inline-block;
+  min-width:        100px;
+  border-right:     1px dashed grey;
+  border-bottom:    1px dashed grey;
+  }
+
+/*Make the parent of sub-menu relative*/
+ul#menu li {
+  position: relative;
+  }
+
+/*sub menu*/
+ul#menu li ul.sub-menu {
+  display:  none;
+  position: absolute;
+  top:      39px;
+  left:     -6px;
+  width:    100px;
+  }
+
+ul#menu li:hover ul.sub-menu {
+  display: block;
+  }
+
+.gig {
+  padding-bottom: 18px;
+  }
+
+.gig_title {
+  font-weight: bold;
+  font-size:   14pt;
+  color:       #292663;
+  }
+
+#side_bar_text .gig_title {
+  color:         #c2c2c2;
+  font-size:     12pt;
+  border-bottom: 1px dotted white;
+  margin:        5px 0;
+  }
+
+#side_bar_text .gig_details {
+  font-size: 10pt;
+  margin:    3px 0;
+  }
+
+#side_bar_text .gig_details a {
+  text-decoration: none;
+  color:           inherit;
+  }
+
+#side_bar_text .gig_details a:hover {
+  text-decoration: underline;
+  color:           #899b9a;
+  }
+
+.gig_venue {
+  font-style: italic;
+  }
+
+.gig_subtitle {
+  font-weight: bold;
+  font-size:   12pt;
+  color:       #292663;
+  font-style:  italic;
+  }
+
+.gig_bands {
+  padding: 5px 0;
+  }
