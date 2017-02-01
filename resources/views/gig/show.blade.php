@@ -2,7 +2,7 @@
 
 @section('main')
     @if (!empty($gigs))
-        <h2>Gigg</h2>
+        <h2>Gigs</h2>
         @foreach ($gigs as $gig)
             <div class="gig_before"></div>
             <div class="gig">
@@ -17,15 +17,15 @@
                 </div>
                 <div class="venue">{{$gig['venue']['venue_name']}}</div>
                 <div class="bands">
-                    <?php $band_count = count($gig['bands']); ?>
-                    <?php $counter = 1; ?>
+                  <?php $band_count = count($gig['bands']); ?>
+                  <?php $counter = 1; ?>
                     @foreach ($gig['bands'] as $band)
                         <span class="band"><a
-                                    href="{{!empty($delete)?'/admin/band/'.$band['id'].'/edit':'#'}}">{{$band['band_name']}}</a></span>
+                                    href="{{!empty($delete)?'/admin/band/'.$band['id'].'/edit':'bands/'.camel_case(strtolower(preg_replace('/[^a-z0-9]/i', '_', $band['band_name'])))}}">{{$band['band_name']}}</a></span>
                         @if ($counter < $band_count)
                             <span class="band_separator">-</span>
                         @endif
-                        <?php $counter++; ?>
+                    <?php $counter++; ?>
                     @endforeach
                 </div>
                 <div class="details">

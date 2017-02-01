@@ -35,12 +35,12 @@
 
 .gig_title, .gig_date, .subtitle, .bands, .venue, .details {
   text-align:  center;
-  font-family: 'Just Another Hand', cursive;
+  font-family: 'anton';
   font-size:   30pt;
   }
 
 .gig_title, .gig_date {
-  font-family: 'handwritten_title';
+  font-family: 'anton';
   line-height: 0.9em;
   padding:     10px 0;
   }

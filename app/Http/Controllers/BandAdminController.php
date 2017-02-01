@@ -71,11 +71,12 @@ class BandAdminController extends Controller
       : Band::where('band_name', '=', trim($band_data['name']))->first();
 
     if (is_null($band)) {
-      $band = Band::firstOrCreate(['band_name' => trim($band_data['name'])]);
+      $band = Band::firstOrCreate(['band_name' => trim($band_data['name']), 'seo_name' => camel_case(strtolower(preg_replace('/[^a-z0-9]/i', '_', $band_data['name'])))]);
       $message = 'Band Created: ' . $band_data['name'];
     } else {
       if (!empty($band_data['band_id']) && !empty($band_data['name'])) {
         $band->band_name = $band_data['name'];
+        $band->seo_name = camel_case(strtolower(preg_replace('/[^a-z0-9]/i', '_', $band_data['name'])));
       }
       $message = 'Band Edited: ' . $band_data['name'];
     }

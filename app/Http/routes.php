@@ -37,6 +37,10 @@ Route::get('/pic2', function () {
   return $img->response('png');
 });
 
+
+
+Route::get('/seo', 'BandController@add_seo_name');
+Route::get('/bands/{name}', 'BandController@band_details');
 Route::get('/bands', 'BandController@index');
 Route::get('/venues', 'VenueController@index');
 

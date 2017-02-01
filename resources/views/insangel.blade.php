@@ -9,6 +9,7 @@
     <link href='http://fonts.googleapis.com/css?family=Montez' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Patrick+Hand|Just+Another+Hand' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ URL::asset('css/gig.css') }}" rel="stylesheet">
 
@@ -70,6 +71,7 @@
         .band_logo img {
             display: block;
             margin:  -1px auto 8px auto;
+            max-height: 250px;
             }
 
         .cover_gig_title {
@@ -93,12 +95,34 @@
             font-weight: bold;
             }
 
-        .band_title {
-            font-family:   "Patrick Hand";
-            text-align:    center;
-            font-size:     24pt;
-            margin-bottom: 8px;
-            color:         #9c4c49;
+        .band_title, .band_details_mini_title {
+            font-family:      "Anton";
+            letter-spacing:   0.2em;
+            text-align:       left;
+            font-size:        18pt;
+            margin-bottom:    8px;
+            color:            #ffffff;
+            background-color: #595959;
+            padding:          5px 10px;
+            }
+
+        .band_details{
+            padding: 5px 10px;
+            }
+
+        .band_details_mini_title {
+            font-size:        12pt;
+            color:            #5f5f5f;
+            padding:          8px 0;
+            background-color: transparent;
+            border-bottom:    1px dashed #8c8c8c;
+            }
+
+        .band_gig {
+
+            padding:          4px 0 4px 15px;
+            background-color: transparent;
+            border-bottom:    1px dashed #8c8c8c;
             }
 
         .venue_page_gig {
@@ -126,7 +150,7 @@
 <div class="container" style="border:none">
     <div class="row">
         <div id="insangel_logo" class="col-md-3"><img src="{{ URL::asset('images/insangel.png') }}"/></div>
-            @include('includes.menu')
+        @include('includes.menu')
     </div>
 </div>
 
