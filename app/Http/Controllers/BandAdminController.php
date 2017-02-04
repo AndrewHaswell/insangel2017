@@ -76,7 +76,7 @@ class BandAdminController extends Controller
     } else {
       if (!empty($band_data['band_id']) && !empty($band_data['name'])) {
         $band->band_name = $band_data['name'];
-        $band->seo_name = camel_case(strtolower(preg_replace('/[^a-z0-9]/i', '_', $band_data['name'])));
+        $band->seo_name = insangel_case($band_data['name']);
       }
       $message = 'Band Edited: ' . $band_data['name'];
     }

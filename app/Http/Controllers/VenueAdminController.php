@@ -67,14 +67,14 @@ class VenueAdminController extends Controller
     $venue = Venue::where('venue_name', '=', trim($venue_data['name']))->first();
     if (is_null($venue)) {
       $venue = Venue::firstOrCreate(['venue_name' => trim($venue_data['name']),
-                                     'seo_name'   => camel_case(strtolower(preg_replace('/[^a-z0-9]/i', '_', $venue_data['name'])))]);
+                                     'seo_name'   => insangel_case($venue_data['name'])]);
       $message = 'Venue Created: ' . $venue_data['name'];
     } else {
       $message = 'Venue Edited: ' . $venue_data['name'];
     }
 
     if (!empty($venue_data['name'])) {
-      $venue->seo_name = camel_case(strtolower(preg_replace('/[^a-z0-9]/i', '_', $venue_data['name'])));
+      $venue->seo_name = insangel_case($venue_data['name']);
     }
     if (!empty($venue_data['description'])) {
       $venue->venue_description = $venue_data['description'];

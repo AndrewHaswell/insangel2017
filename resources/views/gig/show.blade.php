@@ -15,7 +15,7 @@
                 <div class="gig_date">
                     {{Carbon\Carbon::parse($gig['datetime'])->format('l jS F Y')}}
                 </div>
-                <div class="venue">{{$gig['venue']['venue_name']}}</div>
+                    <div class="venue"><a href="venues/{{$gig['venue']['seo_name']}}">{{$gig['venue']['venue_name']}}</a></div>
                 <div class="bands">
                   <?php $band_count = count($gig['bands']); ?>
                   <?php $counter = 1; ?>

@@ -41,6 +41,8 @@ Route::get('/pic2', function () {
 
 Route::get('/seo', 'BandController@add_seo_name');
 Route::get('/bands/{name}', 'BandController@band_details');
+Route::get('/pages/{name}', 'CmsPagesController@index');
+Route::get('/venues/{name}', 'VenueController@venue_details');
 Route::get('/bands', 'BandController@index');
 Route::get('/venues', 'VenueController@index');
 
