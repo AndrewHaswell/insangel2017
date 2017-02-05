@@ -19,7 +19,8 @@
         <div class="bands">
           @foreach ($gig['bands'] as $band)
             <div class="band"><a
-                  href="{{!empty($delete)?'/admin/band/'.$band['id'].'/edit':'bands/'.insangel_case($band['band_name'])}}">{{$band['band_name']}}</a></div>
+                  href="{{!empty($delete)?'/admin/band/'.$band['id'].'/edit':'bands/'.insangel_case($band['band_name'])}}">{{$band['band_name']}}</a>
+            </div>
           @endforeach
         </div>
         <div class="details">
@@ -32,9 +33,27 @@
           @endif
           <span class="detail">{{Carbon\Carbon::parse($gig['datetime'])->format('g:i a')}}</span>
           <span class="detail-last">07901 616 185</span>
-
-
         </div>
+        @if (!empty($gig['links']))
+          <br style="margin-bottom: 40px"/>
+          <div class="social_media">
+            <div class="social_media_links">
+              <?php
+              $links = explode(',', $gig['links']);
+              foreach ($links as $link) {
+                $parts = parse_url($link);
+                if (strpos($parts['host'], 'facebook.com') !== false) {
+                  echo '<a href = "' . $link . '"><img src="' . URL::asset('images/facebook.png') . '"/></a>';
+                }
+                if (strpos($parts['host'], 'twitter.com') !== false) {
+                  echo '<a href = "' . $link . '"><img src="' . URL::asset('images/twitter.png') . '"/></a>';
+                }
+              }
+              ?>
+            </div>
+          </div>
+        @endif
+
       </div>
       <div class="gig_after"></div>
 

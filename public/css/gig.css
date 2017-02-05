@@ -39,8 +39,6 @@
   font-size:   30pt;
   }
 
-
-
 .gig_title, .gig_date {
   font-family: 'Captain';
   line-height: 0.9em;
@@ -52,7 +50,7 @@
   text-transform: lowercase;
   font-size:      30pt;
   color:          #007700;
-  line-height: 1em;
+  line-height:    1em;
   }
 
 .gig_date {
@@ -60,8 +58,8 @@
   }
 
 .bands {
-  font-family: 'Crimes';
-  color:       #b40000;
+  font-family:    'Crimes';
+  color:          #b40000;
   text-transform: lowercase;
   font-size:   36pt;
   line-height: 1em;
@@ -80,9 +78,9 @@
   }
 
 .details {
-  text-align: center;
-  font-size: 14pt;
-  font-weight:bold;
+  text-align:  center;
+  font-size:   14pt;
+  font-weight: bold;
   }
 
 .detail:after {
@@ -91,4 +89,23 @@
 
 .gig p {
   padding: 0 8px;
+  }
+
+.social_media {
+  float:    left;
+  top:      -15px;
+  position: relative;
+  left:     50%;
+  }
+
+.social_media_links {
+  float:    left;
+  position: relative;
+  left:     -50%;
+  }
+
+.social_media img {
+  max-height: 32px;
+  margin:     8px 0;
+  padding:    0 3px;
   }
