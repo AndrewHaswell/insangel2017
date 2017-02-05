@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 class Band extends Model
 {
   protected $fillable = ['band_name',
+                         'seo_name',
                          'band_description',
                          'band_logo'];
 
   /**
    * @param $value
+   *
    * @author Andrew Haswell
    */
 
@@ -25,7 +27,7 @@ class Band extends Model
    */
   public function gigs()
   {
-    return $this->belongsToMany('App\Gig');
+    return $this->belongsToMany('App\Gig')->orderBy('datetime');
   }
 
   /**
@@ -39,6 +41,7 @@ class Band extends Model
 
   /**
    * @param $query
+   *
    * @return mixed
    * @author Andrew Haswell
    */
@@ -46,7 +49,8 @@ class Band extends Model
   {
     return $query->with(['gigs' => function ($w) {
       $w->where('datetime', '>=', Carbon::today());
-    }, 'gigs.venue'])->whereHas('gigs', function ($wh) {
+    },
+                         'gigs.venue'])->whereHas('gigs', function ($wh) {
       $wh->where('datetime', '>=', Carbon::today());
     })->orderBy('band_name', 'asc');
   }

@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
+use App\CmsPages;
 
 class InsangelComposer
 {
@@ -15,10 +16,19 @@ class InsangelComposer
    */
   public function compose(View $view)
   {
-    $navigation = ['/'      => 'Gigs by Date',
-                   'bands'  => 'Gigs by Band',
-                   'venues' => 'Gigs by Venue',];
 
-    $view->with('navigation', array_reverse($navigation));
+    $navigation = ['/'      => 'Upcoming Gigs',
+                   'bands'  => 'Bands',
+                   'venues' => 'Venues',];
+
+    $extra_pages = CmsPages::all();
+
+    if (!empty($extra_pages)) {
+      foreach ($extra_pages as $page) {
+        $navigation['pages/' . $page->url] = $page->title;
+      }
+    }
+
+    $view->with('navigation', $navigation);
   }
 }

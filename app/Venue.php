@@ -8,6 +8,7 @@ class Venue extends Model
 {
 
   protected $fillable = ['venue_name',
+                         'seo_name',
                          'title',
                          'subtitle',
                          'datetime',
@@ -18,24 +19,28 @@ class Venue extends Model
     return $this->hasMany('App\Gig');
   }
 
-  public function scopeTest($query){
-    return $query->with(['gigs', 'gigs.bands']);
+  public function scopeTest($query)
+  {
+    return $query->with(['gigs',
+                         'gigs.bands']);
   }
 
-  public function scopeAllCurrentByDate($query){
-    return $query->with(['gigs'=> function ($w) {
+  public function scopeAllCurrentByDate($query)
+  {
+    return $query->with(['gigs' => function ($w) {
       $w->where('datetime', '>=', Carbon::today())->orderBy('datetime', 'asc');
-    }, 'gigs.bands'])->whereHas('gigs', function ($wh) {
+    },
+                         'gigs.bands'])->whereHas('gigs', function ($wh) {
       $wh->where('datetime', '>=', Carbon::today());
     })->orderBy('venue_name', 'asc');
   }
 
-  public function scopeAllCoverVenues($query){
-    return $query->with(['gigs'=> function ($w) {
-      $w->where('datetime', '>=', Carbon::today())
-        ->where('cover', '=', 'Y')
-        ->orderBy('datetime', 'asc');
-    }, 'gigs.bands'])->orderBy('venue_name', 'asc');
+  public function scopeAllCoverVenues($query)
+  {
+    return $query->with(['gigs' => function ($w) {
+      $w->where('datetime', '>=', Carbon::today())->where('cover', '=', 'Y')->orderBy('datetime', 'asc');
+    },
+                         'gigs.bands'])->orderBy('venue_name', 'asc');
   }
 
 }

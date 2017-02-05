@@ -64,18 +64,36 @@ class VenueAdminController extends Controller
       $venue_data['logo'] = camel_case($venue_data['name'] . '.' . $extension);
     }
 
-    $venue = Venue::where('venue_name', '=', trim($venue_data['name']))->first();
+    if (!empty($venue_data['venue_id'])) {
+      $venue = Venue::find($venue_data['venue_id']);
+    } else {
+      $venue = Venue::where('venue_name', '=', trim($venue_data['name']))->first();
+    }
+
     if (is_null($venue)) {
-      $venue = Venue::firstOrCreate(['venue_name' => trim($venue_data['name'])]);
+      $venue = Venue::firstOrCreate(['venue_name' => trim($venue_data['name']),
+                                     'seo_name'   => insangel_case($venue_data['name'])]);
       $message = 'Venue Created: ' . $venue_data['name'];
     } else {
       $message = 'Venue Edited: ' . $venue_data['name'];
     }
 
-    if (!empty($venue_data['description'])) $venue->venue_description = $venue_data['description'];
-    if (!empty($venue_data['address'])) $venue->venue_address = $venue_data['address'];
-    if (!empty($venue_data['telephone'])) $venue->venue_telephone = $venue_data['telephone'];
-    if (!empty($venue_data['logo'])) $venue->venue_logo = $venue_data['logo'];
+    if (!empty($venue_data['name'])) {
+      $venue->venue_name = trim($venue_data['name']);
+      $venue->seo_name = insangel_case($venue_data['name']);
+    }
+    if (!empty($venue_data['description'])) {
+      $venue->venue_description = $venue_data['description'];
+    }
+    if (!empty($venue_data['address'])) {
+      $venue->venue_address = $venue_data['address'];
+    }
+    if (!empty($venue_data['telephone'])) {
+      $venue->venue_telephone = $venue_data['telephone'];
+    }
+    if (!empty($venue_data['logo'])) {
+      $venue->venue_logo = $venue_data['logo'];
+    }
 
     $venue->save();
 
