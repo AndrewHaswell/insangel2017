@@ -19,7 +19,7 @@
   margin-bottom:       10px;
   height:              0;
   padding-top:         8.6%;
-  border: 0;
+  border:              0;
   }
 
 .gig_before {
@@ -30,41 +30,59 @@
   margin-bottom:       0;
   height:              0;
   padding-top:         7.5%;
-  border: 0;
+  border:              0;
   }
 
-.gig_title, .gig_date, .subtitle, .bands, .venue, .details {
+.gig_title, .gig_date, .subtitle, .bands, .venue {
   text-align:  center;
-  font-family: 'anton';
+  font-family: 'Captain';
   font-size:   30pt;
   }
 
+
+
 .gig_title, .gig_date {
-  font-family: 'anton';
+  font-family: 'Captain';
   line-height: 0.9em;
   padding:     10px 0;
+  }
+
+.gig_title, .subtitle {
+  font-family:    'Crimes';
+  text-transform: lowercase;
+  font-size:      30pt;
+  color:          #007700;
   }
 
 .gig_date {
   border-bottom: 1px dashed black;
   }
 
-.gig_date, .bands {
-  font-size: 34pt;
+.bands {
+  font-family: 'Crimes';
+  color:       #b40000;
+  text-transform: lowercase;
+  font-size:   36pt;
+  }
+
+.gig_date {
+  font-size: 30pt;
   }
 
 .subtitle {
-  font-size: 24pt;
+  font-size: 18pt;
   }
 
 .details {
-  font-size: 24pt;
+  text-align: center;
+  font-size: 14pt;
+  font-weight:bold;
   }
 
 .detail:after {
   content: " - ";
   }
 
-.gig p{
+.gig p {
   padding: 0 8px;
   }

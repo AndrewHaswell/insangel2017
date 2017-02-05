@@ -14,41 +14,82 @@
   <link href="{{ URL::asset('css/gig.css') }}" rel="stylesheet">
 
   <style>
+    a {
+      color:           inherit;
+      text-decoration: none;
+
+      }
 
     @font-face {
       font-family: Impact;
       src:         url('{{ URL::asset('fonts/Impact Label Reversed.ttf') }}');
       }
 
-    #navigation {
-      position: relative;
+    @font-face {
+      font-family: Captain;
+      src:         url('{{ URL::asset('fonts/American Captain.ttf') }}');
       }
 
-    #navigation .menu-item {
-      background-color: black;
-      width:            200px;
-      float:            right;
-      margin:           10px;
-      padding:          5px 10px;
-      border:           2px solid white;
-      text-align:       center;
-      position:         relative;
+    @font-face {
+      font-family: Crimes;
+      src:         url('{{ URL::asset('fonts/Plane Crash.ttf') }}');
+
       }
 
-    #navigation .menu-item > a {
+    .project-container {
+      text-align: center;
+      padding: 0 30px;
+      }
+
+    ul {
+      text-align: left;
+      display: inline;
+      }
+
+    li,
+    .project-box {
+      display: inline-block;
+      }
+
+
+    .project-box > a {
       font-family:     Impact, fantasy;
-      font-size:       16pt;
-      color:           white;
+      word-spacing:    -0.3em;
+      font-size:       20pt;
+      color:           black;
       text-decoration: none;
+      padding:         0 10px;
       }
 
-    #navigation .menu-item:hover {
+    #navigation li a:hover {
+      cursor:           pointer;
+      color:            white;
       background-color: #5c5c5c;
       }
 
     body {
-      background-image: url("{{ URL::asset('images/graffiti_background.png') }}");
+      background-image: url("{{ URL::asset('images/graffiti_background.jpg') }}");
       font-family:      Roboto, fantasy;
+      }
+
+    h1, h2, h3 {
+      font-family: Captain;
+      font-size:   40pt;
+      }
+
+    h2 {
+      font-size: 30pt;
+      }
+
+    h3 {
+      font-size: 20pt;
+      }
+
+    #cms_page {
+      background-color: white;
+      border:           1px solid grey;
+      padding:          15px;
+      margin:           20px 0 0 0;
       }
 
     .container {
@@ -60,6 +101,11 @@
     .body_text {
       background-image: url("{{ URL::asset('images/dirt.png') }}");
       padding:          0 20px 30px 20px;
+      }
+
+    .link_text {
+      background-image: url("{{ URL::asset('images/dirt.png') }}");
+      padding:          3px;
       }
 
     #cover_gigs {
@@ -96,11 +142,11 @@
       }
 
     .band_title, .band_details_mini_title {
-      font-family:      "Anton";
+      font-family:      "Captain";
       letter-spacing:   0.2em;
       text-align:       left;
       font-size:        18pt;
-      margin:           5px 0 8px 0;
+      margin:           0 0 8px 0;
       color:            #ffffff;
       background-color: #595959;
       padding:          5px 10px;
@@ -149,8 +195,17 @@
 <body>
 <div class="container" style="border:none">
   <div class="row">
-    <div id="insangel_logo" class="col-md-3"><img src="{{ URL::asset('images/insangel.png') }}"/></div>
-    @include('includes.menu')
+    <a href="/">
+      <div id="insangel_logo" class="col-md-3"><img src="{{ URL::asset('images/insangel.png') }}"/></div>
+    </a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="link_text">
+    <div class="row">
+      @include('includes.menu')
+    </div>
   </div>
 </div>
 

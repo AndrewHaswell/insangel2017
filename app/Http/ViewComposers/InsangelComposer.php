@@ -17,9 +17,9 @@ class InsangelComposer
   public function compose(View $view)
   {
 
-    $navigation = ['/'      => 'Gigs by Date',
-                   'bands'  => 'Gigs by Band',
-                   'venues' => 'Gigs by Venue',];
+    $navigation = ['/'      => 'Upcoming Gigs',
+                   'bands'  => 'Bands',
+                   'venues' => 'Venues',];
 
     $extra_pages = CmsPages::all();
 
@@ -29,6 +29,6 @@ class InsangelComposer
       }
     }
 
-    $view->with('navigation', array_reverse($navigation));
+    $view->with('navigation', $navigation);
   }
 }

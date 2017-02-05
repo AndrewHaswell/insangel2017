@@ -83,7 +83,8 @@ class GigAdminController extends Controller
     $gig_data = Input::all();
 
     // Get or create the venue for the gig
-    $venue = Venue::firstOrCreate(['venue_name' => $gig_data['venue']]);
+    $venue = Venue::firstOrCreate(['venue_name' => $gig_data['venue'],
+                                   'seo_name'   => insangel_case($gig_data['venue'])]);
 
     if (!empty($gig_data['gig_id'])) {
       $gig = Gig::findOrFail($gig_data['gig_id']);
@@ -125,7 +126,7 @@ class GigAdminController extends Controller
 
       // Get or create the band
       $this_band = Band::firstOrCreate(['band_name' => $band_name,
-                                        'seo_name' => insangel_case($band_name)]);
+                                        'seo_name'  => insangel_case($band_name)]);
       // Assign the band to the gig
       $gig->bands()->save($this_band);
     }
@@ -268,7 +269,7 @@ class GigAdminController extends Controller
           $this_cover_gig[] = $venue;
 
           foreach ($cover_gig->gigs as $gig) {
-            $bands = implode(' + ', $gig->bands->lists('band_name'));
+            $bands = implode(' + ', $gig->bands->pluck('band_name')->toArray());
             $this_cover_gig[] = date('j M', strtotime($gig['datetime'])) . ' - ' . $bands;
           }
 

@@ -13,6 +13,7 @@ if (!function_exists('insangel_case')) {
 
   function insangel_case($string)
   {
+
     return strtolower(preg_replace('/[^a-z0-9]/i', '-', preg_replace('/[\']/i', '', trim($string))));
   }
 }

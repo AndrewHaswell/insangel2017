@@ -86,7 +86,11 @@ class CmsAdminController extends Controller
    */
   public function edit($id)
   {
-    //
+    $title = 'Edit CMS Page';
+    $submit = 'Save Changes';
+    $cms = CmsPages::findOrFail($id);
+
+    return view('admin.cms.create', compact('title', 'cms', 'submit'));
   }
 
   /**
@@ -110,7 +114,16 @@ class CmsAdminController extends Controller
    */
   public function destroy($id)
   {
-    //
+    $cms = CmsPages::find($id);
+    $message = $cms['title'] . ' - Page deleted';
+    $cms->delete();
+    return Redirect::action('GigAdminController@index')->with('message', $message);
+  }
+
+  public function list_pages()
+  {
+    $pages = CmsPages::all();
+    return view('admin.cms.show', compact('pages'));
   }
 
 }

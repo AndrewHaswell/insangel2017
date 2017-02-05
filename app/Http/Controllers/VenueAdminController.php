@@ -64,7 +64,12 @@ class VenueAdminController extends Controller
       $venue_data['logo'] = camel_case($venue_data['name'] . '.' . $extension);
     }
 
-    $venue = Venue::where('venue_name', '=', trim($venue_data['name']))->first();
+    if (!empty($venue_data['venue_id'])) {
+      $venue = Venue::find($venue_data['venue_id']);
+    } else {
+      $venue = Venue::where('venue_name', '=', trim($venue_data['name']))->first();
+    }
+
     if (is_null($venue)) {
       $venue = Venue::firstOrCreate(['venue_name' => trim($venue_data['name']),
                                      'seo_name'   => insangel_case($venue_data['name'])]);
@@ -74,6 +79,7 @@ class VenueAdminController extends Controller
     }
 
     if (!empty($venue_data['name'])) {
+      $venue->venue_name = trim($venue_data['name']);
       $venue->seo_name = insangel_case($venue_data['name']);
     }
     if (!empty($venue_data['description'])) {
