@@ -61,9 +61,8 @@
   font-family:    'Crimes';
   color:          #b40000;
   text-transform: lowercase;
-  font-size:      36pt;
-  line-height:    1em;
-  border:         1px solid pink;
+  font-size:   36pt;
+  line-height: 1em;
   }
 
 .bands > .band {
