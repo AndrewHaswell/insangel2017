@@ -52,6 +52,7 @@
   text-transform: lowercase;
   font-size:      30pt;
   color:          #007700;
+  line-height: 1em;
   }
 
 .gig_date {
@@ -63,6 +64,12 @@
   color:       #b40000;
   text-transform: lowercase;
   font-size:   36pt;
+  line-height: 1em;
+  border: 1px solid pink;
+  }
+
+.bands > .band {
+  margin-bottom: 15px;
   }
 
 .gig_date {
