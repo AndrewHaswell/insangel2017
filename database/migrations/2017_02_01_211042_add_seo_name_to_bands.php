@@ -29,6 +29,6 @@ class AddSeoNameToBands extends Migration
   {
     Schema::table('bands', function ($table) {
       $table->dropColumn('seo_name');
-    });
+  });
   }
 }

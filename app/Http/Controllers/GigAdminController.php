@@ -107,6 +107,7 @@ class GigAdminController extends Controller
     $gig->subtitle = $gig_data['subtitle'];
     $gig->cost = $gig_data['cost'];
     $gig->notes = $gig_data['notes'];
+    $gig->links = $gig_data['links'];
     $gig->cover = (!empty($gig_data['cover'])
       ? 'Y'
       : 'N');
