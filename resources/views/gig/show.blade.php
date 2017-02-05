@@ -15,21 +15,11 @@
         <div class="gig_date">
           {{Carbon\Carbon::parse($gig['datetime'])->format('l jS F Y')}}
         </div>
-        <div class="venue"><a href="venues/{{$gig['venue']['seo_name']}}">{{$gig['venue']['venue_name']}}</a></div>
+        <div class="venue">@ <a href="venues/{{$gig['venue']['seo_name']}}">{{$gig['venue']['venue_name']}}</a></div>
         <div class="bands">
-          <?php $band_count = count($gig['bands']); ?>
-          <?php $counter = 1; ?>
-          <?php $max_length = 15; ?>
-          <?php $current_length = 0; ?>
           @foreach ($gig['bands'] as $band)
-            <span class="band"><a
-                  href="{{!empty($delete)?'/admin/band/'.$band['id'].'/edit':'bands/'.insangel_case($band['band_name'])}}">{{$band['band_name']}}</a></span>
-            @if ($counter < $band_count)
-            <!--      <span class="band_separator">-</span>-->
-              <br/>
-
-            @endif
-            <?php $counter++; ?>
+            <div class="band"><a
+                  href="{{!empty($delete)?'/admin/band/'.$band['id'].'/edit':'bands/'.insangel_case($band['band_name'])}}">{{$band['band_name']}}</a></div>
           @endforeach
         </div>
         <div class="details">

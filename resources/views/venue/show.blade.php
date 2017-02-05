@@ -23,7 +23,7 @@
             @foreach ($venue['gigs'] as $gig)
               <div class="venue_page_gig">
                 <?php $band_list = $gig->bands->pluck('band_name')->toArray(); ?>
-                <p class="small_gig_date">{{date('D jS m', strtotime($gig['datetime']))}}</p>
+                <p class="small_gig_date">{{date('D jS M', strtotime($gig['datetime']))}}</p>
                 @if (!empty($band_list) && is_array($band_list))
                   <p class="small_band_list">{{implode(' / ', $band_list)}}</p>
                 @endif
