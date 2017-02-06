@@ -42,6 +42,9 @@
               $links = explode(',', $gig['links']);
               foreach ($links as $link) {
                 $parts = parse_url($link);
+                if (strpos($parts['host'], 'instagram.com') !== false) {
+                  echo '<a href = "' . $link . '"><img src="' . URL::asset('images/instagram.png') . '"/></a>';
+                }
                 if (strpos($parts['host'], 'facebook.com') !== false) {
                   echo '<a href = "' . $link . '"><img src="' . URL::asset('images/facebook.png') . '"/></a>';
                 }
