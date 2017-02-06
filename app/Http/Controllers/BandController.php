@@ -30,7 +30,7 @@ class BandController extends Controller
 
   public function band_details($name)
   {
-    $band = Band::where('seo_name', $name)->firstOrFail();
+    $band = Band::AllCurrentByDate()->where('seo_name', $name)->firstOrFail();
     return view('band.details', compact('band'));
   }
 
