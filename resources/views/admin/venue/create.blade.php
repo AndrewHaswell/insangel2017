@@ -43,6 +43,11 @@
   </div>
 
   <div class="form-group">
+    {!! Form::label('links', 'Links: ') !!}
+    {!! Form::text('links', (!empty($venue['links']) ? $venue['links'] : null), ['class'=>'form-control']) !!}
+  </div>
+
+  <div class="form-group">
     {!! Form::submit((!empty($submit) ? $submit : 'Add Venue'), ['class' => 'btn btn-primary form-control']) !!}
   </div>
 

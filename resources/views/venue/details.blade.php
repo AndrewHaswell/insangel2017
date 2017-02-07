@@ -51,5 +51,19 @@
     @endforeach
   @endif
 
+  @if (!empty($venue['links']))
+    <div class="social_media" style="top:0">
+      <div class="social_media_links">
+        <?php
+        $links = explode(',', $venue['links']);
+        foreach ($links as $link) {
+          show_social_link($link);
+        }
+        ?>
+      </div>
+    </div>
+    <br/>
+  @endif
+
 
 @endsection

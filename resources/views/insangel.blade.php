@@ -38,12 +38,12 @@
 
     .project-container {
       text-align: center;
-      padding: 0 30px;
+      padding:    0 30px;
       }
 
     ul {
       text-align: left;
-      display: inline;
+      display:    inline;
       }
 
     li,

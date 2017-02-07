@@ -94,6 +94,9 @@ class VenueAdminController extends Controller
     if (!empty($venue_data['logo'])) {
       $venue->venue_logo = $venue_data['logo'];
     }
+    if (!empty($venue_data['links'])) {
+      $venue->links = $venue_data['links'];
+    }
 
     $venue->save();
 
