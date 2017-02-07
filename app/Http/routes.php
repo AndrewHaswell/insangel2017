@@ -46,6 +46,14 @@ Route::get('/venues/{name}', 'VenueController@venue_details');
 Route::get('/bands', 'BandController@index');
 Route::get('/venues', 'VenueController@index');
 
+Route::get('auth/register', function () {
+  return View::make('errors.404');
+});
+
+Route::post('auth/register', function () {
+  return View::make('errors.404');
+});
+
 Route::get('admin/download', 'GigAdminController@gig_list');
 Route::get('admin/cms/list_pages', 'CmsAdminController@list_pages');
 
