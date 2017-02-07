@@ -28,6 +28,11 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('links', 'Links: ') !!}
+        {!! Form::text('links', (!empty($band['links']) ? $band['links'] : null), ['class'=>'form-control']) !!}
+    </div>
+
+    <div class="form-group">
         {!! Form::submit((!empty($submit) ? $submit : 'Add Band'), ['class' => 'btn btn-primary form-control']) !!}
     </div>
 

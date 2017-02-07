@@ -87,6 +87,9 @@ class BandAdminController extends Controller
     if (!empty($band_data['logo'])) {
       $band->band_logo = $band_data['logo'];
     }
+    if (!empty($band_data['links'])) {
+      $band->links = $band_data['links'];
+    }
 
     $band->save();
 
