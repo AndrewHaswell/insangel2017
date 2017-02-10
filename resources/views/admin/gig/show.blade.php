@@ -10,7 +10,7 @@
         <div class="gig">
 
           @if ($gig['cover'] == 'Y')
-            <div class="cover">AVAILABLE GIGS</div>
+            <div class="cover">AVAILABLE GIG</div>
           @endif
 
           <h3>{{ $gig['title'] ? $gig['title'] : '' }}
@@ -52,7 +52,7 @@
           <small>{{Carbon\Carbon::parse($gig['datetime'])->format('g:i a')}} |</small>
           <small>07901 616 185</small>
 
-
+          <div class="poster"><a href="/admin/poster/{{$gig['id']}}" target="_blank">Generate Poster</a></div>
 
 
         </div>
