@@ -7,3 +7,4 @@ Homestead.json
 .vagrant
 /public/downloads/band_logos/*
 /public/downloads/venue_logos/*
+/public/posters/*

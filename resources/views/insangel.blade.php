@@ -143,6 +143,7 @@
 
     .band_title, .band_details_mini_title {
       font-family:      "Captain";
+      position: relative;
       letter-spacing:   0.2em;
       text-align:       left;
       font-size:        18pt;
@@ -222,6 +223,12 @@
     @yield('content')
   </div>
 </div>
+
+<!--<div class="container">
+  <div class="body_text">
+    @include('includes.footer')
+  </div>
+</div>-->
 
 </body>
 </html>

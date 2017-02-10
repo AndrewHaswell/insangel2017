@@ -19,6 +19,12 @@
       font-size:        8pt;
       margin-bottom:    5px;
       }
+    .poster {
+      background-color: #d5d5d5;
+      color:            white;
+      padding:          3px 3px 3px 15px;
+      margin:           10px 0 0 0;
+      }
 
   </style>
 </head>

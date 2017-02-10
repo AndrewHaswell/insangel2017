@@ -8,7 +8,10 @@
     </div>
   @endif
 
-  <div class="band_title">{{$band['band_name']}}</div>
+  <div class="band_title">
+    <span style="float:left;position:relative; top:3px;">{{$band['band_name']}}</span>
+    <span class="band_email"><a href="mailto:{{insangel_case( $band['band_name'] )}}@insangel.co.uk">{{insangel_case( $band['band_name'] )}}@insangel.co.uk</a></span>
+    &nbsp;</div>
 
   @if (!empty($band['band_description']))
     <div class="band_details_mini_title">About:</div>

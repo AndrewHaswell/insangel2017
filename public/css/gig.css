@@ -61,8 +61,8 @@
   font-family:    'Crimes';
   color:          #b40000;
   text-transform: lowercase;
-  font-size:   36pt;
-  line-height: 1em;
+  font-size:      36pt;
+  line-height:    1em;
   }
 
 .bands > .band {
@@ -108,4 +108,18 @@
   max-height: 32px;
   margin:     8px 0;
   padding:    0 3px;
+  }
+
+.band_email a {
+  position:    relative;
+  top:         8px;
+  font-family: Roboto;
+  float:       right;
+  font-size:   10pt;
+  }
+
+.band_email a:hover {
+  position:        relative;
+  color:           red;
+  text-decoration: none;
   }

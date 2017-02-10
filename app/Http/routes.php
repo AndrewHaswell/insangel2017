@@ -11,40 +11,18 @@
 |
 */
 
-use Intervention\Image\Facades\Image;
-
 Route::get('/', 'GigController@index');
-
-Route::get('/pic2', function () {
-
-  //return public_path('fonts/Across the Road.ttf');
-
-  $img = Image::canvas(250, 30, '#000');
-
-
-
-  // use callback to define details
-  $img->text('Gigs by Band', 125,14, function($font) {
-    $font->file(public_path('fonts/Impact Label Reversed.ttf'));
-    $font->size(26);
-    $font->color('#fff');
-    $font->align('center');
-    $font->valign('center');
-  });
-
-  //$img->blur();
-
-  return $img->response('png');
-});
-
-
-
 Route::get('/seo', 'BandController@add_seo_name');
 Route::get('/bands/{name}', 'BandController@band_details');
 Route::get('/pages/{name}', 'CmsPagesController@index');
 Route::get('/venues/{name}', 'VenueController@venue_details');
 Route::get('/bands', 'BandController@index');
 Route::get('/venues', 'VenueController@index');
+Route::get('ajax/bands/{count}', 'AjaxController@band_drop_downs');
+Route::get('admin', 'GigAdminController@index');
+Route::get('admin/download', 'GigAdminController@gig_list');
+Route::get('admin/poster/{id}', 'PosterAdminController@make_poster');
+Route::get('admin/cms/list_pages', 'CmsAdminController@list_pages');
 
 Route::get('auth/register', function () {
   return View::make('errors.404');
@@ -54,17 +32,11 @@ Route::post('auth/register', function () {
   return View::make('errors.404');
 });
 
-Route::get('admin/download', 'GigAdminController@gig_list');
-Route::get('admin/cms/list_pages', 'CmsAdminController@list_pages');
-
 Route::resource('admin/gig', 'GigAdminController');
 Route::resource('admin/band', 'BandAdminController');
 Route::resource('admin/venue', 'VenueAdminController');
 Route::resource('admin/cms', 'CmsAdminController');
 Route::resource('admin/upload', 'UploadAdminController');
-
-Route::get('ajax/bands/{count}', 'AjaxController@band_drop_downs');
-Route::get('admin', 'GigAdminController@index');
 
 Route::controllers(['auth'     => 'Auth\AuthController',
                     'password' => 'Auth\PasswordController',]);
