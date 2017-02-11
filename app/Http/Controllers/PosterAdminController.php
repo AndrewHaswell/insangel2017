@@ -224,8 +224,8 @@ class PosterAdminController extends Controller
     }
 
     // Second check if the band canvas is too tall
-    if ($band_canvas_height > $band_area['y']) {
-      $ratio = $band_area['y'] / $band_canvas_height;
+    if ($band_canvas_height >  ($band_bottom - $band_top)) {
+      $ratio =  ($band_bottom - $band_top) / $band_canvas_height;
       $band_canvas_height = (int)ceil($band_canvas_height * $ratio);
       $band_canvas_width = (int)ceil($band_canvas_width * $ratio);
     }
