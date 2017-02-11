@@ -12,73 +12,62 @@ use Endroid\QrCode\QrCode;
 
 class PosterAdminController extends Controller
 {
-  function make_poster($gig_id = 2)
+
+  /**
+   * Create a poster for the gig
+   *
+   * @param int $gig_id
+   *
+   * @author Andrew Haswell
+   */
+
+  function make_poster($gig_id = 1)
   {
+
+    // +---
+    // | Load the Gig before we do anything else
+    // +---
 
     $gig = Gig::findorfail($gig_id);
 
-    $links = $gig['links'];
-    $has_qr = false;
-
-    if (0 && !empty($links)) {
-      $link = explode(',', $links);
-      $qrCode = new QrCode();
-      $qrCode->setText(current($link))->setSize(150)->setPadding(10)->setErrorCorrection('high');
-      $qrCode->setForegroundColor(['r' => 0,
-                                   'g' => 0,
-                                   'b' => 0,
-                                   'a' => 0]);
-      $qrCode->setBackgroundColor(['r' => 255,
-                                   'g' => 255,
-                                   'b' => 255,
-                                   'a' => 0]);
-      $qrCode->setImageType(QrCode::IMAGE_TYPE_PNG)->save('posters/qrcode_' . $gig_id . '.png');
-      $has_qr = true;
-    }
+    // +---
+    // | Load the default background image
+    // +---
 
     $img = Image::make(URL::asset('images/background.png'))->resize(1240, 1754);
-    //   $img = Image::make(URL::asset('images/insangelintroduces.png'))->resize(1240, 1754);
 
-    $venue = $gig->venue['venue_name'];
+    // +---
+    // | Add the Insangel logo
+    // +---
 
-    $img->text(strtolower($venue), 625, 265, function ($font) {
-      $font->file(public_path('fonts/Plane Crash.ttf'));
-      $font->size(65);
-      $font->color('#000');
-      $font->align('center');
-    });
-    $img->text(strtolower($venue), 620, 260, function ($font) {
-      $font->file(public_path('fonts/Plane Crash.ttf'));
-      $font->size(65);
-      $font->color('#fff');
-      $font->align('center');
-    });
-
-    $insangel_logo = Image::make(URL::asset('images/insangel-logo-white.png'))->resize(1180, null, function ($constraint) {
+    $insangel_logo = Image::make(URL::asset('images/insangel-logo-white.png'))->resize(750, null, function ($constraint) {
       $constraint->aspectRatio();
     });
-    $img->insert($insangel_logo, 'top', 0, 230);
+    $img->insert($insangel_logo, 'top', 0, 100);
 
-    $subtitle_position = 1010;
+    // +---
+    // | Check whether we need an image banner, a text banner or none
+    // +---
 
-    // Do we need a banner
+    // Set the default subtitle position first
+    $subtitle_position = 660;
 
+    // If we have a gig title, then decide what to do with it
     if (!empty($gig['title'])) {
 
       $title = strtolower(trim($gig['title']));
 
+      // Is it an introduces gig?
       if (substr($title, 0, 19) == 'insangel introduces') {
-        $banner = Image::make(URL::asset('images/introducing.png'))->resize(830, null, function ($constraint) {
+        $banner = Image::make(URL::asset('images/introducing.png'))->resize(650, null, function ($constraint) {
           $constraint->aspectRatio();
         });
-
-        $img->insert($banner, 'top', 0, 750);
+        $img->insert($banner, 'top', 0, 430);
       } else {
-
-        $banner = Image::canvas(1240, 120, 'rgba(0, 0, 0, 0.5)');
-        $img->insert($banner, 'top', 0, 810);
-
-        $img->text(strtoupper($gig['title']), 620, 900, function ($font) {
+        // There's no more image banner, so fall back to text
+        $banner = Image::canvas(1240, 120, 'rgba(0, 0, 0, 0.7)');
+        $img->insert($banner, 'top', 0, 470);
+        $img->text(strtoupper($gig['title']), 620, 558, function ($font) {
           $font->file(public_path('fonts/FuturaLT-Bold.ttf'));
           $font->size(65);
           $font->color('#fff');
@@ -86,8 +75,13 @@ class PosterAdminController extends Controller
         });
       }
     } else {
-      $subtitle_position = 960;
+      // We don't have any kind of gig title, so move the subtitle slightly
+      $subtitle_position = 580;
     }
+
+    // +---
+    // | Add the subtitle
+    // +---
 
     $subtitle = !empty($gig['subtitle'])
       ? $gig['subtitle']
@@ -100,31 +94,9 @@ class PosterAdminController extends Controller
       $font->align('center');
     });
 
-    //dd($gig);
-
-    $gig_date = Carbon::parse($gig->datetime);
-    $time = $gig_date->format('g:ia');
-    $date = $gig_date->formatLocalized('%A %d %B %Y');
-
-    $img->text(strtoupper($date), 620, 1120, function ($font) {
-      $font->file(public_path('fonts/FuturaLT-Book.ttf'));
-      $font->size(60);
-      $font->color('#fff');
-      $font->align('center');
-    });
-
-    $cost = $gig->cost;
-
-    if (!empty($cost) && is_numeric($cost)) {
-      $cost = '£' . $cost;
-    }
-
-    $img->text(strtoupper('Starts at ' . $time . ' - ' . $cost), 620, 1165, function ($font) {
-      $font->file(public_path('fonts/FuturaLT-Book.ttf'));
-      $font->size(40);
-      $font->color('#fff');
-      $font->align('center');
-    });
+    // +---
+    // | Add the website footer
+    // +---
 
     $img->text(strtoupper('www.insangel.co.uk'), 620, 1595, function ($font) {
       $font->file(public_path('fonts/FuturaLT-Book.ttf'));
@@ -133,56 +105,205 @@ class PosterAdminController extends Controller
       $font->align('center');
     });
 
-    $band_position = ['band_count_1' => [1390],
-                      'band_count_2' => [1330,
-                                         1457],
-                      'band_count_3' => [1290,
-                                         1397,
-                                         1507],
-                      'band_count_4' => [1260,
-                                         1348,
-                                         1433,
-                                         1520,]];
+    // +---
+    // | Add the venue name
+    // +---
 
-    $band_size = ['band_count_1' => 88,
-                  'band_count_2' => 100,
-                  'band_count_3' => 88,
-                  'band_count_4' => 65];
+    $venue = $gig->venue['venue_name'];
 
+    $box_size = $this->text_size($venue);
+    $venue_img = Image::canvas($box_size['x'] + 10, $box_size['y'] + 10);
+    $venue_img->text(strtolower($venue), 5, 5, function ($font) {
+      $font->file(public_path('fonts/Plane Crash.ttf'));
+      $font->size(100);
+      $font->color('#fff');
+      $font->valign('top');
+    });
+
+    $venue_img->resize(1000, null, function ($constraint) {
+      $constraint->aspectRatio();
+      $constraint->upsize();
+    });
+
+    $venue_height = $venue_img->height();
+
+    $img->insert($venue_img, 'top', 620, 1405 - $venue_height);
+
+    // +---
+    // | Add the gig date details
+    // +---
+
+    $gig_date = Carbon::parse($gig->datetime);
+    $time = $gig_date->format('g:ia');
+    $date = $gig_date->formatLocalized('%A %d %B %Y');
+
+    $img->text(strtoupper($date), 620, 1370 - $venue_height, function ($font) {
+      $font->file(public_path('fonts/FuturaLT-Book.ttf'));
+      $font->size(70);
+      $font->color('#fff');
+      $font->align('center');
+    });
+
+    // +---
+    // | Add the venue time and costs
+    // +---
+
+    $cost = $gig->cost;
+
+    if (!empty($cost) && is_numeric($cost)) {
+      $cost = '£' . $cost;
+    }
+
+    $img->text(strtoupper('Starts at ' . $time . ' - ' . $cost), 620, 1495, function ($font) {
+      $font->file(public_path('fonts/FuturaLT-Book.ttf'));
+      $font->size(60);
+      $font->color('#fff');
+      $font->align('center');
+    });
+
+    // +---
+    // | Add the band names
+    // +---
+
+    // Set some defaults
+    $band_top = $subtitle_position + 60;
+    $band_bottom = 1230 - $venue_height;
+    $band_padding = 60;
+    $band_size = 140;
+
+    // Get the band names
     $band_list = $gig->bands->pluck('band_name')->toArray();
 
-    $band_count = count($band_list);
+    // +---
+    // | Work out the size we have for the band names
+    // +---
 
-    if ($band_count > 4) {
-      $band_list = array_slice($band_list, 0, 4);
-      $band_count = 4;
-    }
-
-    $count = 0;
+    $band_area = ['x' => 0,
+                  'y' => 0];
+    $area = [];
 
     foreach ($band_list as $band_name) {
+      $this_band_area = $this->text_size($band_name, $band_size, 'FuturaLT-CondensedExtraBold.ttf', true);
+      $band_area['y'] += $this_band_area['y'] + $band_padding;
+      if ($this_band_area['x'] > $band_area['x']) {
+        $band_area['x'] = $this_band_area['x'];
+      }
+      $area[$band_name] = $this_band_area;
+    }
 
-      $color = $count > 0 && $count % 2 != 0
-        ? '#fff'
-        : '#ddd';
+    // +---
+    // | Now we have our sizes, create a blank canvas and add the names
+    // +---
 
-      $img->text(strtoupper($band_name), 620, $band_position['band_count_' . $band_count][$count], function ($font) use ($band_size, $band_count, $color) {
+    $band_canvas = Image::canvas($band_area['x'], $band_area['y'] - $band_padding);
+    $current_height = 0;
+
+    foreach ($band_list as $band_name) {
+      $current_height += ($area[$band_name]['y']);
+      $band_canvas->text(strtoupper($band_name), ceil($band_area['x'] / 2), $current_height, function ($font) use ($band_size) {
         $font->file(public_path('fonts/FuturaLT-CondensedExtraBold.ttf'));
-        $font->size($band_size['band_count_' . $band_count]);
-        $font->color($color);
+        $font->size($band_size);
+        $font->color('#fff');
         $font->align('center');
       });
-      $count++;
+      $current_height += $band_padding;
     }
 
-    if ($has_qr) {
-      $qrcodeimg = Image::make(URL::asset('posters/qrcode_' . $gig_id . '.png'));
-      $img->insert($qrcodeimg, 'bottom-right', 25, 25);
+    // +---
+    // | Work out our new canvas size and decide whether to resize for the final poster
+    // +---
+
+    $band_canvas_height = $band_canvas->height();
+    $band_canvas_width = $band_canvas->width();
+
+    // First check if the band canvas is too wide
+    if ($band_canvas_width > 1140) {
+      $ratio = 1140 / $band_canvas_width;
+      $band_canvas_height = (int)ceil($band_canvas_height * $ratio);
+      $band_canvas_width = (int)ceil($band_canvas_width * $ratio);
     }
+
+    // Second check if the band canvas is too tall
+    if ($band_canvas_height > $band_area['y']) {
+      $ratio = $band_area['y'] / $band_canvas_height;
+      $band_canvas_height = (int)ceil($band_canvas_height * $ratio);
+      $band_canvas_width = (int)ceil($band_canvas_width * $ratio);
+    }
+
+    // If we have any height difference, work it out for positioning
+    $height_diff = ($band_bottom - $band_top) - $band_canvas_height;
+    $height_diff = $height_diff > 2
+      ? (int)ceil($height_diff / 2)
+      : 0;
+
+    // Resize the band canvas
+    $band_canvas->resize($band_canvas_width, $band_canvas_height);
+
+    // Add the bands to the poster
+    $img->insert($band_canvas, 'top', 620, $band_top + $height_diff);
+
+    // +---
+    // | Do we want to add QR codes for links?
+    // +---
+
+    $links = $gig['links'];
+
+    if (!empty($links)) {
+      $link = explode(',', $links);
+      $qrCode = new QrCode();
+      $qrCode->setText(current($link))->setSize(150)->setPadding(10)->setErrorCorrection('high');
+      $qrCode->setForegroundColor(['r' => 0,
+                                   'g' => 0,
+                                   'b' => 0,
+                                   'a' => 0]);
+      $qrCode->setBackgroundColor(['r' => 255,
+                                   'g' => 255,
+                                   'b' => 255,
+                                   'a' => 0]);
+      $qrCode->setImageType(QrCode::IMAGE_TYPE_PNG)->save('posters/qrcode_' . $gig_id . '.png');
+      $qr_code_img = Image::make(URL::asset('posters/qrcode_' . $gig_id . '.png'));
+      $img->insert($qr_code_img, 'bottom-right', 25, 25);
+    }
+
+    // +---
+    // | Output the finished image
+    // +---
 
     $img->save('posters/' . $gig_id . '.jpg');
-
     header('Content-type:image/jpg');
     readfile(URL::asset('posters/' . $gig_id . '.jpg'));
+  }
+
+  /**
+   * Work out the size needed for a text image
+   *
+   * @param        $text
+   * @param int    $size
+   * @param string $font
+   *
+   * @return array
+   * @author Andrew Haswell
+   */
+
+  public function text_size($text, $size = 100, $font = 'Plane Crash.ttf', $uppercase = false)
+  {
+    // Work out roughly pixels to points
+    $size = ($size * 3) / 4;
+
+    // What case are we using?
+    $text = $uppercase
+      ? strtoupper($text)
+      : strtolower($text);
+
+    // Get the x,y co-ordinates for the box
+    $box = imagettfbbox($size, 0, public_path('fonts/' . $font), $text);
+
+    // Pull it out into height and width
+    $width = abs($box[4] - $box[0]);
+    $height = abs($box[5] - $box[1]);
+
+    // Return the results
+    return ['x' => $width,
+            'y' => $height];
   }
 }
