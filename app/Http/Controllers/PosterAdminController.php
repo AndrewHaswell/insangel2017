@@ -116,7 +116,7 @@ class PosterAdminController extends Controller
     $venue_img->text(strtolower($venue), 5, 5, function ($font) {
       $font->file(public_path('fonts/Plane Crash.ttf'));
       $font->size(100);
-      $font->color('#fff');
+      $font->color('#ddd');
       $font->valign('top');
     });
 
@@ -203,7 +203,7 @@ class PosterAdminController extends Controller
       $band_canvas->text(strtoupper($band_name), ceil($band_area['x'] / 2), $current_height, function ($font) use ($band_size) {
         $font->file(public_path('fonts/FuturaLT-CondensedExtraBold.ttf'));
         $font->size($band_size);
-        $font->color('#fff');
+        $font->color('#cfc');
         $font->align('center');
       });
       $current_height += $band_padding;
