@@ -85,7 +85,7 @@ class PosterAdminController extends Controller
 
     $subtitle = !empty($gig['subtitle'])
       ? $gig['subtitle']
-      : 'showcasing live music in the north east';
+      : 'music to your beers';
 
     $img->text('"' . strtolower($subtitle) . '"', 620, $subtitle_position, function ($font) {
       $font->file(public_path('fonts/FuturaLT-Book.ttf'));
@@ -251,7 +251,7 @@ class PosterAdminController extends Controller
     if (!empty($links)) {
       $link = explode(',', $links);
       $qrCode = new QrCode();
-      $qrCode->setText(current($link))->setSize(150)->setPadding(10)->setErrorCorrection('high');
+      $qrCode->setText(current($link))->setSize(175)->setPadding(10)->setErrorCorrection('high');
       $qrCode->setForegroundColor(['r' => 0,
                                    'g' => 0,
                                    'b' => 0,
