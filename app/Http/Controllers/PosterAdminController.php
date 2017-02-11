@@ -150,7 +150,14 @@ class PosterAdminController extends Controller
                   'band_count_4' => 65];
 
     $band_list = $gig->bands->pluck('band_name')->toArray();
+
     $band_count = count($band_list);
+
+    if ($band_count > 4) {
+      $band_list = array_slice($band_list, 0, 4);
+      $band_count = 4;
+    }
+
     $count = 0;
 
     foreach ($band_list as $band_name) {
