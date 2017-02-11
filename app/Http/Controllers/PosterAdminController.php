@@ -20,7 +20,7 @@ class PosterAdminController extends Controller
     $links = $gig['links'];
     $has_qr = false;
 
-    if (!empty($links)) {
+    if (0 && !empty($links)) {
       $link = explode(',', $links);
       $qrCode = new QrCode();
       $qrCode->setText(current($link))->setSize(150)->setPadding(10)->setErrorCorrection('high');
