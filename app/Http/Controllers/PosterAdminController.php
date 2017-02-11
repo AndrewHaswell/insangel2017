@@ -116,7 +116,7 @@ class PosterAdminController extends Controller
     $venue_img->text(strtolower($venue), 5, 5, function ($font) {
       $font->file(public_path('fonts/Plane Crash.ttf'));
       $font->size(100);
-      $font->color('#ddd');
+      $font->color('#cfc');
       $font->valign('top');
     });
 
