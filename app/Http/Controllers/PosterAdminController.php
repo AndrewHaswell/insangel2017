@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Gig;
 use Carbon\Carbon;
 use Endroid\QrCode\QrCode;
+use Illuminate\Support\Facades\Auth;
 
 class PosterAdminController extends Controller
 {
