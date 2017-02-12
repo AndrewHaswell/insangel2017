@@ -20,8 +20,10 @@ Route::get('/bands', 'BandController@index');
 Route::get('/venues', 'VenueController@index');
 Route::get('ajax/bands/{count}', 'AjaxController@band_drop_downs');
 Route::get('admin', 'GigAdminController@index');
-Route::get('admin/download', 'GigAdminController@gig_list');
+Route::get('admin/download', 'GigController@gig_list');
+Route::get('download', 'GigController@gig_list')->name('gig_list');
 Route::get('admin/poster/{id}', 'PosterAdminController@make_poster');
+Route::get('poster/{id}', 'PosterAdminController@make_poster')->name('posters');;
 Route::get('admin/cms/list_pages', 'CmsAdminController@list_pages');
 
 Route::get('auth/register', function () {
@@ -33,6 +35,7 @@ Route::post('auth/register', function () {
 });
 
 Route::resource('admin/gig', 'GigAdminController');
+Route::resource('admin/sponsor', 'SponsorController');
 Route::resource('admin/band', 'BandAdminController');
 Route::resource('admin/venue', 'VenueAdminController');
 Route::resource('admin/cms', 'CmsAdminController');

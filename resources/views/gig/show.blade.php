@@ -34,19 +34,24 @@
           <span class="detail">{{Carbon\Carbon::parse($gig['datetime'])->format('g:i a')}}</span>
           <span class="detail-last">07901 616 185</span>
         </div>
-        @if (!empty($gig['links']))
-          <br style="margin-bottom: 40px"/>
-          <div class="social_media">
-            <div class="social_media_links">
-              <?php
-              $links = explode(',', $gig['links']);
-              foreach ($links as $link) {
-                show_social_link($link);
-              }
-              ?>
-            </div>
+
+        <br style="margin-bottom: 40px"/>
+        <div class="social_media">
+          <div class="social_media_links">
+            @if (!empty($gig['links']))
+              <?php $links = explode(',', $gig['links']);?>
+              @foreach ($links as $link)
+                {{show_social_link($link)}}
+              @endforeach
+            @endif
+            @if (file_exists(public_path('posters/'.$gig['id'].'.jpg')))
+              {{show_social_link(URL::asset('posters/'.$gig['id'].'.jpg'))}}
+            @else
+              {{show_social_link(route('posters', ['gig_id' => $gig['id']]))}}
+            @endif
           </div>
-        @endif
+        </div>
+
 
       </div>
       <div class="gig_after"></div>
@@ -85,4 +90,29 @@
 
     </div>
   @endif
+
+  <a href="{{route('gig_list')}}" class="download_gig_list">Download Full Gig List</a>
+
+  @if (!empty($sponsors))
+    @foreach ($sponsors as $sponsor)
+
+
+
+
+      <a href="{{$sponsor['link_url']}}" target="_blank" class="sponsor_link"><img
+            src="{{URL::asset('sponsors/'.$sponsor['banner_url'])}}"/></a>
+
+      @if (Auth::check())
+        {!! Form::open(['action' => ['SponsorController@destroy', $sponsor['id']], 'method' => 'delete']) !!}
+        <div class="form-group">
+          {!! Form::submit('Delete this sponsor?') !!}
+        </div>
+        {!! Form::close() !!}
+      @endif
+
+    @endforeach
+  @endif
+
+
 @endsection
+

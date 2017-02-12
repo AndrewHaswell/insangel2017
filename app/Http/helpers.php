@@ -37,5 +37,11 @@ if (!function_exists('show_social_link')) {
     if (strpos($parts['host'], 'twitter.com') !== false) {
       echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/twitter.png') . '"/></a>';
     }
+    if (!empty($parts['path']) && strpos($parts['path'], 'poster') !== false) {
+      echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/poster_icon.png') . '"/></a>';
+    }
+
+   // echo json_encode($parts, JSON_PRETTY_PRINT);
+
   }
 }
