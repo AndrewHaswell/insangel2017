@@ -123,3 +123,35 @@
   color:           red;
   text-decoration: none;
   }
+
+.available_gigs img {
+  display:   block;
+  margin:    15px auto 0 auto;
+  max-width: 100%;
+  }
+
+.download_gig_list {
+  display:          block;
+  margin-top:       15px;
+  border:           1px solid grey;
+  color:            white;
+  background-color: black;
+  padding:          5px;
+  text-align:       center;
+  font-family:      Impact, fantasy;
+  font-size:        18pt;
+
+  text-decoration:  none;
+  }
+
+.download_gig_list:hover, .download_gig_list:visited {
+  text-decoration:  none;
+  color:            white;
+  background-color: #b60000;
+  cursor:           context-menu;
+  }
+
+.sponsor_link:hover {
+  text-decoration: none;
+  cursor:          pointer;
+  }

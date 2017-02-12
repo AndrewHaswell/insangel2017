@@ -24,6 +24,12 @@ class PosterAdminController extends Controller
   function make_poster($gig_id = 1)
   {
 
+    // If we're not an admin, check to see if the file exists first
+    if (!Auth::check() && file_exists(public_path('posters/' . $gig_id . '.jpg'))) {
+      header('Content-type:image/jpg');
+      readfile(URL::asset('posters/' . $gig_id . '.jpg'));
+    }
+
     // +---
     // | Load the Gig before we do anything else
     // +---
@@ -224,8 +230,8 @@ class PosterAdminController extends Controller
     }
 
     // Second check if the band canvas is too tall
-    if ($band_canvas_height >  ($band_bottom - $band_top)) {
-      $ratio =  ($band_bottom - $band_top) / $band_canvas_height;
+    if ($band_canvas_height > ($band_bottom - $band_top)) {
+      $ratio = ($band_bottom - $band_top) / $band_canvas_height;
       $band_canvas_height = (int)ceil($band_canvas_height * $ratio);
       $band_canvas_width = (int)ceil($band_canvas_width * $ratio);
     }
