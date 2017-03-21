@@ -28,14 +28,16 @@ if (!function_exists('show_social_link')) {
   function show_social_link($link)
   {
     $parts = parse_url($link);
-    if (strpos($parts['host'], 'instagram.com') !== false) {
-      echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/instagram.png') . '"/></a>';
-    }
-    if (strpos($parts['host'], 'facebook.com') !== false) {
-      echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/facebook.png') . '"/></a>';
-    }
-    if (strpos($parts['host'], 'twitter.com') !== false) {
-      echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/twitter.png') . '"/></a>';
+    if (!empty($parts['host'])) {
+      if (strpos($parts['host'], 'instagram.com') !== false) {
+        echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/instagram.png') . '"/></a>';
+      }
+      if (strpos($parts['host'], 'facebook.com') !== false) {
+        echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/facebook.png') . '"/></a>';
+      }
+      if (strpos($parts['host'], 'twitter.com') !== false) {
+        echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/twitter.png') . '"/></a>';
+      }
     }
     if (!empty($parts['path']) && strpos($parts['path'], 'poster') !== false) {
       echo '<a href = "' . $link . '" target="_blank"><img src="' . URL::asset('images/poster_icon.png') . '"/></a>';
