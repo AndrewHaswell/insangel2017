@@ -1,4 +1,4 @@
-#!/usr/bin/env php
+#!/opt/php70/bin/php
 <?php
 
 /*
