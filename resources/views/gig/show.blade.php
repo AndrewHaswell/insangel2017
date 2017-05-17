@@ -62,6 +62,36 @@
 
 
 @section('cover')
+  <h2>Post Your Gigs</h2>
+
+  {!! Form::open(['action' => 'BandAdminController@store', 'files' => true]) !!}
+
+  <div class="form-group">
+    {!! Form::label('date', 'Date: ') !!}
+    {!! Form::text('date', null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('band_name', 'Band Name: ') !!}
+    {!! Form::text('band_name', null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('venue', 'Venue: ') !!}
+    {!! Form::text('venue', null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('time', 'Time: ') !!}
+    {!! Form::text('time', null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('price', 'Price: ') !!}
+    {!! Form::text('price', null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('email', 'Email: (Optional) ') !!}
+    {!! Form::text('email', null, ['class'=>'form-control']) !!}
+  </div>
+  {!! Form::close() !!}
+
   @if (!empty($cover_gigs))
     <h2>Available Gigs</h2>
     <div id="cover_gigs">
