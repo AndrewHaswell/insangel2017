@@ -52,7 +52,6 @@
           </div>
         </div>
 
-
       </div>
       <div class="gig_after"></div>
 
@@ -62,36 +61,6 @@
 
 
 @section('cover')
-  <h2>Post Your Gigs</h2>
-
-  {!! Form::open(['action' => 'BandAdminController@store', 'files' => true]) !!}
-
-  <div class="form-group">
-    {!! Form::label('date', 'Date: ') !!}
-    {!! Form::text('date', null, ['class'=>'form-control']) !!}
-  </div>
-  <div class="form-group">
-    {!! Form::label('band_name', 'Band Name: ') !!}
-    {!! Form::text('band_name', null, ['class'=>'form-control']) !!}
-  </div>
-  <div class="form-group">
-    {!! Form::label('venue', 'Venue: ') !!}
-    {!! Form::text('venue', null, ['class'=>'form-control']) !!}
-  </div>
-  <div class="form-group">
-    {!! Form::label('time', 'Time: ') !!}
-    {!! Form::text('time', null, ['class'=>'form-control']) !!}
-  </div>
-  <div class="form-group">
-    {!! Form::label('price', 'Price: ') !!}
-    {!! Form::text('price', null, ['class'=>'form-control']) !!}
-  </div>
-  <div class="form-group">
-    {!! Form::label('email', 'Email: (Optional) ') !!}
-    {!! Form::text('email', null, ['class'=>'form-control']) !!}
-  </div>
-  {!! Form::close() !!}
-
   @if (!empty($cover_gigs))
     <h2>Available Gigs</h2>
     <div id="cover_gigs">
@@ -117,32 +86,6 @@
         @endforeach
       @endif
 
-
     </div>
   @endif
-
-  <a href="{{route('gig_list')}}" class="download_gig_list">Download Full Gig List</a>
-
-  @if (!empty($sponsors))
-    @foreach ($sponsors as $sponsor)
-
-
-
-
-      <a href="{{$sponsor['link_url']}}" target="_blank" class="sponsor_link"><img
-            src="{{URL::asset('sponsors/'.$sponsor['banner_url'])}}"/></a>
-
-      @if (Auth::check())
-        {!! Form::open(['action' => ['SponsorController@destroy', $sponsor['id']], 'method' => 'delete']) !!}
-        <div class="form-group">
-          {!! Form::submit('Delete this sponsor?') !!}
-        </div>
-        {!! Form::close() !!}
-      @endif
-
-    @endforeach
-  @endif
-
-
 @endsection
-

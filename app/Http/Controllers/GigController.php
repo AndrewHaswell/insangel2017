@@ -113,4 +113,14 @@ class GigController extends Controller
     return Response::make(implode("\n\r\n\r\n\r", $gig_download), '200', array('Content-Type'        => 'application/octet-stream',
                                                                                'Content-Disposition' => 'attachment; filename="gig_list.txt'));
   }
+
+  public function other_gigs()
+  {
+
+  }
+
+  public function store_other_gigs(Request $request)
+  {
+    dd($request);
+  }
 }

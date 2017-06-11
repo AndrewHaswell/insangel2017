@@ -17,7 +17,8 @@ class InsangelComposer
   public function compose(View $view)
   {
 
-    $navigation = ['/'      => 'Upcoming Gigs',
+    $navigation = ['/'      => 'Insangel Gigs',
+                   'other'  => 'North East Gigs',
                    'bands'  => 'Bands',
                    'venues' => 'Venues',];
 
