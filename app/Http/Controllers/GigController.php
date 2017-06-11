@@ -114,13 +114,4 @@ class GigController extends Controller
                                                                                'Content-Disposition' => 'attachment; filename="gig_list.txt'));
   }
 
-  public function other_gigs()
-  {
-
-  }
-
-  public function store_other_gigs(Request $request)
-  {
-    dd($request);
-  }
 }
