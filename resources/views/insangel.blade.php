@@ -13,6 +13,8 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ URL::asset('css/gig.css') }}" rel="stylesheet">
 
+  @yield('js')
+
   <style>
     a {
       color:           inherit;
@@ -50,7 +52,6 @@
     .project-box {
       display: inline-block;
       }
-
 
     .project-box > a {
       font-family:     Impact, fantasy;
@@ -143,7 +144,7 @@
 
     .band_title, .band_details_mini_title {
       font-family:      "Captain";
-      position: relative;
+      position:         relative;
       letter-spacing:   0.2em;
       text-align:       left;
       font-size:        18pt;
@@ -185,9 +186,37 @@
 
     .venue_page_gig p.small_gig_date {
       font-weight: bold;
-
       }
 
+    .ne_gigs tr {
+      border-bottom: 1px dotted black;
+      }
+
+    .ne_gigs td {
+      font-family: Roboto, fantasy;
+      font-size:   11pt;
+      padding:     4px 25px;
+      background:  white;
+      }
+
+    .month_year {
+      font-size:      24pt;
+      text-align:     left;
+      font-family:    Crimes;
+      text-transform: lowercase;
+      border-bottom:  1px dashed darkred;
+      margin:         45px 0 15px 0;
+      color:          darkred;
+      }
+
+    .post_gigs {
+      font-size: 9pt;
+      background-color: white;
+      border: 1px dashed grey;
+      margin-bottom: 20px;
+      padding: 15px;
+      text-align: justify;
+      }
 
   </style>
 
@@ -227,8 +256,10 @@
 <!--<div class="container">
   <div class="body_text">
     @include('includes.footer')
-  </div>
-</div>-->
+    </div>
+  </div>-->
+
+@yield('js_footer')
 
 </body>
 </html>

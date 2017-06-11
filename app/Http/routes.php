@@ -26,9 +26,6 @@ Route::get('admin/poster/{id}', 'PosterAdminController@make_poster');
 Route::get('poster/{id}', 'PosterAdminController@make_poster')->name('posters');;
 Route::get('admin/cms/list_pages', 'CmsAdminController@list_pages');
 
-Route::get('auth/register', function () {
-  return View::make('errors.404');
-});
 
 Route::post('auth/register', function () {
   return View::make('errors.404');
@@ -38,8 +35,10 @@ Route::resource('admin/gig', 'GigAdminController');
 Route::resource('admin/sponsor', 'SponsorController');
 Route::resource('admin/band', 'BandAdminController');
 Route::resource('admin/venue', 'VenueAdminController');
+Route::resource('admin/other', 'OtherAdminController');
 Route::resource('admin/cms', 'CmsAdminController');
 Route::resource('admin/upload', 'UploadAdminController');
+Route::resource('/other', 'OtherController');
 
 Route::controllers(['auth'     => 'Auth\AuthController',
                     'password' => 'Auth\PasswordController',]);
