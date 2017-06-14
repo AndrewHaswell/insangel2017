@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PosterAdminController extends Controller
 {
-
+  public function __construct()
+  {
+    $authorised = Auth::check();
+    if (!$authorised) {
+      abort(403, 'Unauthorized action.');
+    }
+  }
   /**
    * Create a poster for the gig
    *

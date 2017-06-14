@@ -108,7 +108,7 @@
     'class'=>'form-control']) !!}
   </div>
   <div class="form-group">
-    {!! Form::label('price', 'Price: ') !!}
+    {!! Form::label('price', 'Price: (Optional)') !!}
     {!! Form::text('price', null, ['class'=>'form-control']) !!}
   </div>
   <div class="form-group">
