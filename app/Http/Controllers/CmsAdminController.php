@@ -11,7 +11,13 @@ use Request;
 
 class CmsAdminController extends Controller
 {
-
+  public function __construct()
+  {
+    $authorised = Auth::check();
+    if (!$authorised) {
+      abort(403, 'Unauthorized action.');
+    }
+  }
   /**
    * Display a listing of the resource.
    *

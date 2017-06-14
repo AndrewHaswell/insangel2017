@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class OtherAdminController extends Controller
 {
+  public function __construct()
+  {
+    $authorised = Auth::check();
+    if (!$authorised) {
+      abort(403, 'Unauthorized action.');
+    }
+  }
   /**
    * Display a listing of the resource.
    *
