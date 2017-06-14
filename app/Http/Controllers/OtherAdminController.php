@@ -51,8 +51,6 @@ class OtherAdminController extends Controller
 
         $email = (string)$email->email;
 
-        dump($email);
-
         Mail::send('gig.email', ['type' => 'approve'], function ($message) use ($email) {
           $message->from('phil@insangel.co.uk', 'Insangel');
           $message->to($email);
