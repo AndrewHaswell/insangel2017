@@ -58,12 +58,12 @@ class OtherAdminController extends Controller
       foreach ($approve_emails as $email) {
 
         $email = (string)$email->email;
-
+/*
         Mail::send('gig.email', ['type' => 'approve'], function ($message) use ($email) {
           $message->from('phil@insangel.co.uk', 'Insangel');
           $message->to($email);
           $message->subject('Gigs Approved');
-        });
+        });*/
       }
 
       OtherGigs::whereIn('id', $approve)->update(['active' => 1]);
