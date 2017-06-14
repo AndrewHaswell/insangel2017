@@ -75,8 +75,7 @@
   <div class="post_gigs">
     <p>
       To add your gigs to the list, please enter the form below. Gigs will not appear until they are approved by an
-      admin. To be alerted when your gigs are live, please enter your email address (this is for alerts only and will
-      not be attached to the gig or used for any other purpose).</p>
+      admin. To be alerted when your gigs are live, please enter your email address.</p>
   </div>
 
   @if (!empty($gig_message))
@@ -95,7 +94,7 @@
 
   {!! Form::open(['action' => 'OtherController@store', 'files' => true]) !!}
   <div class="form-group">
-    {!! Form::label('name', 'Bands: ') !!}
+    {!! Form::label('name', 'Bands: (Separate multiple bands using / )') !!}
     {!! Form::text('name', null, ['class'=>'form-control']) !!}
   </div>
   <div class="form-group">

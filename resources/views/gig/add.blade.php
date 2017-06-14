@@ -20,7 +20,7 @@
 
   {!! Form::open(['action' => 'OtherController@store', 'files' => true]) !!}
   <div class="form-group">
-    {!! Form::label('name', 'Bands: ') !!}
+    {!! Form::label('name', 'Bands: (Separate multiple bands using / )') !!}
     {!! Form::text('name', null, ['class'=>'form-control']) !!}
   </div>
   <div class="form-group">
@@ -33,7 +33,7 @@
     'class'=>'form-control']) !!}
   </div>
   <div class="form-group">
-    {!! Form::label('price', 'Price: ') !!}
+    {!! Form::label('price', 'Price: (Optional)') !!}
     {!! Form::text('price', null, ['class'=>'form-control']) !!}
   </div>
   <div class="form-group">
