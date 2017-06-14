@@ -130,8 +130,11 @@ class OtherController extends Controller
     Session::flash('gig', 'Gig saved - if you have entered your email address you will be notified when the gig is live');
 
     $gig->save();
-
-    return Redirect::to(url('/other'));
+    if (!empty($request->redirect) && $request->redirect == 'Y') {
+      return Redirect::to(url('/add_gig'));
+    } else {
+      return Redirect::to(url('/other'));
+    }
   }
 
   /**
@@ -181,5 +184,11 @@ class OtherController extends Controller
   public function destroy($id)
   {
     //
+  }
+
+  public function add_gig()
+  {
+    $gig_message = Session::get('gig');
+    return view('gig.add', compact(['gig_message']));
   }
 }

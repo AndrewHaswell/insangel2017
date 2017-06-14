@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class OtherAdminController extends Controller
@@ -44,7 +45,22 @@ class OtherAdminController extends Controller
     // If we have anything to approve, do it
     if (!empty($request->approve)) {
       $approve = $request->approve;
-      DB::table('other_gigs')->whereIn('id', $approve)->update(['active' => 1]);
+
+      $approve_emails = DB::table('other_gigs')->select('email')->whereIn('id', $approve)->where('email', '!=', '')->groupBy('email')->get();
+      foreach ($approve_emails as $email) {
+
+        $email = (string)$email->email;
+
+        dump($email);
+
+        Mail::send('gig.email', ['type' => 'approve'], function ($message) use ($email) {
+          $message->from('phil@insangel.co.uk', 'Insangel');
+          $message->to($email);
+          $message->subject('Gigs Approved');
+        });
+      }
+
+      OtherGigs::whereIn('id', $approve)->update(['active' => 1]);
     }
 
     // Or if we have any to delete, then remove it
@@ -52,7 +68,6 @@ class OtherAdminController extends Controller
       $delete = $request->delete;
       DB::table('other_gigs')->whereIn('id', $delete)->delete();
     }
-
     return Redirect::to(url('/admin'));
   }
 
