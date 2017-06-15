@@ -17,10 +17,10 @@ class InsangelComposer
   public function compose(View $view)
   {
 
-    $navigation = ['/'      => 'Insangel Gigs',
-                   'other'  => 'North East Gigs',
-                   'bands'  => 'Bands',
-                   'venues' => 'Venues',];
+    $navigation = ['/'                 => 'Insangel Gigs',
+                   'northeastgigguide' => 'North East Gigs',
+                   'bands'             => 'Bands',
+                   'venues'            => 'Venues',];
 
     $extra_pages = CmsPages::all();
 
