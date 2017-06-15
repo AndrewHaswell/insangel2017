@@ -17,6 +17,8 @@ Route::get('/bands/{name}', 'BandController@band_details');
 Route::get('/pages/{name}', 'CmsPagesController@index');
 Route::get('/venues/{name}', 'VenueController@venue_details');
 Route::get('/bands', 'BandController@index');
+
+Route::get('/northeastgigguide', 'OtherController@index');
 Route::get('/add_gig', 'OtherController@add_gig');
 Route::get('/venues', 'VenueController@index');
 Route::get('ajax/bands/{count}', 'AjaxController@band_drop_downs');

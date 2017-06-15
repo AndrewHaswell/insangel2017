@@ -133,7 +133,7 @@ class OtherController extends Controller
     if (!empty($request->redirect) && $request->redirect == 'Y') {
       return Redirect::to(url('/add_gig'));
     } else {
-      return Redirect::to(url('/other'));
+      return Redirect::to(url('/northeastgigguide'));
     }
   }
 
