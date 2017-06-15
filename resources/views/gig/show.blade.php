@@ -49,6 +49,11 @@
             @else
               {{show_social_link(route('posters', ['gig_id' => $gig['id']]))}}
             @endif
+            @if (file_exists(public_path('posters/'.$gig['id'].'_1.jpg')))
+              {{show_social_link(URL::asset('posters/'.$gig['id'].'_1.jpg'))}}
+            @else
+              {{show_social_link(route('posters', ['gig_id' => $gig['id'], 'plain'=>1]))}}
+            @endif
           </div>
         </div>
 

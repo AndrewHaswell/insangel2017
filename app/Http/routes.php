@@ -26,7 +26,7 @@ Route::get('admin', 'GigAdminController@index');
 Route::get('admin/download', 'GigController@gig_list');
 Route::get('download', 'GigController@gig_list')->name('gig_list');
 Route::get('admin/poster/{id}', 'PosterAdminController@make_poster');
-Route::get('poster/{id}', 'PosterAdminController@make_poster')->name('posters');;
+Route::get('poster/{id}/{plain?}', 'PosterAdminController@make_poster')->name('posters');
 Route::get('admin/cms/list_pages', 'CmsAdminController@list_pages');
 
 
