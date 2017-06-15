@@ -13,28 +13,38 @@ use Illuminate\Support\Facades\Auth;
 
 class PosterAdminController extends Controller
 {
-  public function __construct()
-  {
-    $authorised = Auth::check();
-    if (!$authorised) {
-      abort(403, 'Unauthorized action.');
-    }
-  }
   /**
    * Create a poster for the gig
    *
    * @param int $gig_id
+   * @param int $plain
    *
    * @author Andrew Haswell
    */
 
-  function make_poster($gig_id = 1)
+  function make_poster($gig_id = 1, $plain = 0)
   {
+    $poster_file_name = $plain
+      ? 'posters/' . $gig_id . '_1.jpg'
+      : 'posters/' . $gig_id . '.jpg';
+    $poster_file = public_path($poster_file_name);
+
+    $white = $plain
+      ? '#444'
+      : '#fff';
+
+    $title_col = $plain
+      ? '#f00'
+      : '#fff';
+
+    $colour = $plain
+      ? '#000'
+      : '#cfc';
 
     // If we're not an admin, check to see if the file exists first
-    if (!Auth::check() && file_exists(public_path('posters/' . $gig_id . '.jpg'))) {
+    if (!Auth::check() && file_exists($poster_file)) {
       header('Content-type:image/jpg');
-      readfile(URL::asset('posters/' . $gig_id . '.jpg'));
+      readfile(URL::asset($poster_file_name));
     }
 
     // +---
@@ -46,14 +56,18 @@ class PosterAdminController extends Controller
     // +---
     // | Load the default background image
     // +---
-
-    $img = Image::make(URL::asset('images/background.png'))->resize(1240, 1754);
+    $background = $plain
+      ? 'images/background-light.png'
+      : 'images/background.png';
+    $img = Image::make(URL::asset($background))->resize(1240, 1754);
 
     // +---
     // | Add the Insangel logo
     // +---
-
-    $insangel_logo = Image::make(URL::asset('images/insangel-logo-white.png'))->resize(750, null, function ($constraint) {
+    $insangel = $plain
+      ? 'images/insangel-logo-colour.png'
+      : 'images/insangel-logo-white.png';
+    $insangel_logo = Image::make(URL::asset($insangel))->resize(750, null, function ($constraint) {
       $constraint->aspectRatio();
     });
     $img->insert($insangel_logo, 'top', 0, 100);
@@ -80,10 +94,10 @@ class PosterAdminController extends Controller
         // There's no more image banner, so fall back to text
         $banner = Image::canvas(1240, 120, 'rgba(0, 0, 0, 0.7)');
         $img->insert($banner, 'top', 0, 470);
-        $img->text(strtoupper($gig['title']), 620, 558, function ($font) {
+        $img->text(strtoupper($gig['title']), 620, 558, function ($font) use ($title_col) {
           $font->file(public_path('fonts/FuturaLT-Bold.ttf'));
           $font->size(65);
-          $font->color('#fff');
+          $font->color($title_col);
           $font->align('center');
         });
       }
@@ -100,10 +114,10 @@ class PosterAdminController extends Controller
       ? $gig['subtitle']
       : 'music to your beers';
 
-    $img->text('"' . strtolower($subtitle) . '"', 620, $subtitle_position, function ($font) {
+    $img->text('"' . strtolower($subtitle) . '"', 620, $subtitle_position, function ($font) use ($white) {
       $font->file(public_path('fonts/FuturaLT-Book.ttf'));
       $font->size(40);
-      $font->color('#fff');
+      $font->color($white);
       $font->align('center');
     });
 
@@ -111,10 +125,10 @@ class PosterAdminController extends Controller
     // | Add the website footer
     // +---
 
-    $img->text(strtoupper('www.insangel.co.uk'), 620, 1595, function ($font) {
+    $img->text(strtoupper('www.insangel.co.uk'), 620, 1595, function ($font) use ($white) {
       $font->file(public_path('fonts/FuturaLT-Book.ttf'));
       $font->size(40);
-      $font->color('#fff');
+      $font->color($white);
       $font->align('center');
     });
 
@@ -126,10 +140,11 @@ class PosterAdminController extends Controller
 
     $box_size = $this->text_size($venue);
     $venue_img = Image::canvas($box_size['x'] + 10, $box_size['y'] + 10);
-    $venue_img->text(strtolower($venue), 5, 5, function ($font) {
+
+    $venue_img->text(strtolower($venue), 5, 5, function ($font) use ($colour) {
       $font->file(public_path('fonts/Plane Crash.ttf'));
       $font->size(100);
-      $font->color('#cfc');
+      $font->color($colour);
       $font->valign('top');
     });
 
@@ -150,10 +165,10 @@ class PosterAdminController extends Controller
     $time = $gig_date->format('g:ia');
     $date = $gig_date->formatLocalized('%A %d %B %Y');
 
-    $img->text(strtoupper($date), 620, 1370 - $venue_height, function ($font) {
+    $img->text(strtoupper($date), 620, 1370 - $venue_height, function ($font) use ($white) {
       $font->file(public_path('fonts/FuturaLT-Book.ttf'));
       $font->size(70);
-      $font->color('#fff');
+      $font->color($white);
       $font->align('center');
     });
 
@@ -167,10 +182,10 @@ class PosterAdminController extends Controller
       $cost = '£' . $cost;
     }
 
-    $img->text(strtoupper('Starts at ' . $time . ' - ' . $cost), 620, 1495, function ($font) {
+    $img->text(strtoupper('Starts at ' . $time . ' - ' . $cost), 620, 1495, function ($font) use ($white) {
       $font->file(public_path('fonts/FuturaLT-Book.ttf'));
       $font->size(60);
-      $font->color('#fff');
+      $font->color($white);
       $font->align('center');
     });
 
@@ -213,10 +228,10 @@ class PosterAdminController extends Controller
 
     foreach ($band_list as $band_name) {
       $current_height += ($area[$band_name]['y']);
-      $band_canvas->text(strtoupper($band_name), ceil($band_area['x'] / 2), $current_height, function ($font) use ($band_size) {
+      $band_canvas->text(strtoupper($band_name), ceil($band_area['x'] / 2), $current_height, function ($font) use ($band_size, $colour) {
         $font->file(public_path('fonts/FuturaLT-CondensedExtraBold.ttf'));
         $font->size($band_size);
-        $font->color('#cfc');
+        $font->color($colour);
         $font->align('center');
       });
       $current_height += $band_padding;
@@ -282,9 +297,9 @@ class PosterAdminController extends Controller
     // | Output the finished image
     // +---
 
-    $img->save('posters/' . $gig_id . '.jpg');
+    $img->save($poster_file_name);
     header('Content-type:image/jpg');
-    readfile(URL::asset('posters/' . $gig_id . '.jpg'));
+    readfile(URL::asset($poster_file_name));
   }
 
   /**
