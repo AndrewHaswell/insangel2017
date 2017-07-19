@@ -32,8 +32,6 @@ class PosterAdminController extends Controller
     $gig = Gig::findorfail($gig_id);
     $railway_venue = ($gig->venue_id == 104);
 
-    $railway_venue = 1;
-
     if ($railway_venue) {
       $plain = 1;
     }
