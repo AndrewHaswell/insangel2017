@@ -54,7 +54,7 @@ class UploadAdminController extends Controller
     $gig_data = Input::all();
 
     $cover_gig = 'N';
-    if ($gig_data['double']) {
+    if (isset($gig_data['double']) && $gig_data['double']) {
       $temp_notes = explode("\n", $gig_data['notes']);
       $new_gig_data = [];
       foreach ($temp_notes as $key => $line) {
