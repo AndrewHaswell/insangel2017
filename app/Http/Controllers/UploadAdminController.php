@@ -98,13 +98,27 @@ class UploadAdminController extends Controller
       $gig_cost = array_pop($gig_extra_details);
 
       $gig_cost = preg_match('/[0-9]/i', $gig_cost)
-        ? '&pound;' . number_format(preg_replace('/[^0-9\.]/i', '', $gig_cost), 2) : 'FREE';
+        ? '&pound;' . number_format(preg_replace('/[^0-9\.]/i', '', $gig_cost), 2)
+        : 'FREE';
       $gig_venue = array_filter(array_map('trim', explode(',', array_pop($gig_details))));
 
       $venue_name = array_shift($gig_venue);
       $venue_address = implode(', ', $gig_venue);
 
-      $gig_date = Carbon::createFromFormat('l jS F H:i:s', array_shift($gig_details) . ' ' . $gig_time);
+      $full_date = array_shift($gig_details) . ' ' . $gig_time;
+      preg_match('/([a-z]+)\s([0-9]+)[a-z]+\s([a-z]+)\s([0-9]{4})?\s?([0-9\:]+)/i', $full_date, $date_match);
+
+      if (empty($date_match)) {
+        echo 'Cannot add gig without date' . "\n\r";
+        continue;
+      }
+
+      $date_match = array_slice($date_match, 2);
+      if (empty($date_match[2])) {
+        $date_match[2] = date('Y');
+      }
+
+      $gig_date = Carbon::createFromFormat('j F Y H:i:s', implode(' ', $date_match));
       $gig_title = array_shift($gig_details);
 
       $bands = array_reverse($gig_details, true);
@@ -158,7 +172,9 @@ class UploadAdminController extends Controller
 
       $band_list = array_filter($band_list);
 
-      $gig_subtitle = !empty($gig_details) ? implode(' ', $gig_details) : '';
+      $gig_subtitle = !empty($gig_details)
+        ? implode(' ', $gig_details)
+        : '';
 
       $venue = Venue::firstOrCreate(['venue_name' => $venue_name]);
 
@@ -193,7 +209,8 @@ class UploadAdminController extends Controller
       echo 'Adding bands...' . "\n\r";
 
       foreach ($band_list as $band) {
-        $this_band = Band::firstOrCreate(['band_name' => ($band ?: 'TBC')]);
+        $this_band = Band::firstOrCreate(['band_name' => ($band
+          ?: 'TBC')]);
         echo $band . "\n";
         // Assign the band to the gig
         $gig->bands()->save($this_band);
@@ -204,20 +221,21 @@ class UploadAdminController extends Controller
   }
 
   /**
-   *
-   *
    * @param $time
    *
    * @return string
-   *
    * @author Andrew Haswell
    */
 
   private function fix_time($time)
   {
-    $pm = strpos($time, 'pm') !== false ? true : false;
+    $pm = strpos($time, 'pm') !== false
+      ? true
+      : false;
     $time = str_pad(preg_replace('/[^0-9]*/i', '', $time), 5, '0', STR_PAD_RIGHT);
-    $time = $pm ? $time + 120000 : str_pad($time, 6, '0', STR_PAD_LEFT);
+    $time = $pm
+      ? $time + 120000
+      : str_pad($time, 6, '0', STR_PAD_LEFT);
     return implode(':', str_split($time, 2));
   }
 
